@@ -1,1 +1,0 @@
-# vkoppara.github.io
