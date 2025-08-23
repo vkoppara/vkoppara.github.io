@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    :root {
+  /* Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* Background colors */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-text: var(--color-slate-500);
+  --color-text-secondary: var(--color-gray-400);
+  
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-xl: 2.5rem;
+  --font-size-lg: 2rem;
+  --font-size-md: 1.5rem;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-2xl: 4rem;
+  
+  /* Border radius */
+  --border-radius-sm: 0.375rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease-out;
+  --transition-base: 0.2s ease-out;
+  --transition-slow: 0.3s ease-out;
+  
+  /* Container */
+  --container-max-width: 1200px;
+  --container-padding: var(--spacing-sm);
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* Header Styles */
+.header {
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+}
+
+.nav__logo h2 {
+  color: var(--color-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+}
+
+.nav__menu {
+  display: flex;
+  gap: var(--spacing-lg);
+}
+
+.nav__link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-base);
+}
+
+.nav__link:hover {
+  color: var(--color-primary);
+}
+
+.nav__toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav__toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text);
+  transition: var(--transition-base);
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--color-teal-400), var(--color-primary));
+  color: var(--color-white);
+  padding: var(--spacing-2xl) 0;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-md);
+}
+
+.hero__subtitle {
+  font-size: var(--font-size-md);
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Banner Section */
+.banner {
+  position: relative;
+  background: linear-gradient(45deg, var(--color-red-500), var(--color-orange-500));
+  padding: var(--spacing-2xl) 0;
+  overflow: hidden;
+}
+
+.banner__overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.banner__text {
+  font-size: 3rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.banner__flags {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align:center;
+  
+}
+
+.flag {
+  position: absolute;
+  width: 60px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.flag--1 {
+  top: 20%;
+  left: 10%;
+  background: linear-gradient(to bottom, #009639, #ffffff, #ce1126);
+}
+
+.flag--2 {
+  top: 30%;
+  right: 15%;
+  background: linear-gradient(to right, #002868, #ffffff, #bf0a30);
+}
+
+.flag--3 {
+  bottom: 30%;
+  left: 20%;
+  background: linear-gradient(to bottom, #ffce00, #d52b1e);
+}
+
+.flag--4 {
+  bottom: 20%;
+  right: 10%;
+  background: linear-gradient(to bottom, #006a4e, #f42a41);
+}
+
+.flag--5 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to bottom, #ff9933, #ffffff, #138808);
+}
+
+.flag--6 {
+  top: 15%;
+  left: 70%;
+  background: linear-gradient(to bottom, #ffcd00, #004225, #ce1126);
+}
+
+/* Celebration Section */
+.celebration {
+  padding: var(--spacing-2xl) 0;
+}
+
+.celebration__title {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.celebration__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.celebration__card {
+  background-color: var(--color-slate-500);
+  color: var(--color-white);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.celebration__card:hover,
+.celebration__card:focus {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+}
+
+.celebration__card--cta {
+  background-color: var(--color-gray-400);
+}
+
+.celebration__card-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-sm);
+}
+
+.celebration__card-description {
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Contact Section */
+.contact {
+  background-color: var(--color-surface);
+  padding: var(--spacing-2xl) 0;
+}
+
+.contact__title {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.contact__item {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background-color: var(--color-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.contact__item-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.contact__item-content {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+  background-color: var(--color-white);
+  margin: 5% auto;
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-lg);
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+
+.modal__close {
+  color: var(--color-gray-400);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-md);
+}
+
+.modal__close:hover {
+  color: var(--color-text);
+}
+
+.modal__title {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-lg);
+}
+
+.modal__description {
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    padding: var(--spacing-md);
+  }
+
+  .nav__menu.active {
+    display: flex;
+  }
+
+  .nav__toggle {
+    display: flex;
+  }
+
+  .nav__toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav__toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .hero__title {
+    font-size: var(--font-size-lg);
+  }
+
+  .hero__subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .banner__text {
+    font-size: 2rem;
+  }
+
+  .celebration__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flag {
+    width: 40px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --container-padding: var(--spacing-sm);
+  }
+
+  .hero {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .banner {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .banner__text {
+    font-size: 1.5rem;
+  }
+
+  .celebration, .contact {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .modal__content {
+    margin: 10% auto;
+    padding: var(--spacing-lg);
+  }
+}
+.external-links{
+  text-decoration: none;
+}
+  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <h4>International Day Celebration - Vishwashanti Gurukul World School</h4>
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav__content">
+                    <div class="nav__logo">
+                        <img src="https://www.mitgurukul.com/wp-content/uploads/2024/04/logocombosmall.jpg" alt="logo">
+                    </div>
+                    <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="nav__menu" id="navMenu">
+                        <a href="#home" class="nav__link">Home</a>
+                        <a href="#about" class="nav__link">About</a>
+                        <a href="#contact" class="nav__link">Contact</a>
+                        <a href="timetable.html" class="nav__link">Timetable</a>
+                        <a href="Highlights.html" class="nav__link">Highlight</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title">International Day Celebration</h1>
+                <p class="hero__subtitle">Celebrating unity in diversity at the Annual International Day 2025.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <div class="banner__overlay">
+            <h2 class="banner__text">INTERNATIONAL DAY</h2>
+        </div>
+        <div class="banner__flags">
+                <img src="Screenshot 2025-08-23 at 4.16.21 PM.png">
+        </div>
+    </section>
+
+    <!-- Celebration Section -->
+    <section id="about" class="celebration">
+        <div class="container">
+            <h2 class="celebration__title">Why Should we Celebrate</h2>
+            <div class="celebration__grid">
+                <div class="celebration__card" data-card="why" tabindex="0" role="button" aria-label="Learn why International Day is celebrated">
+                    <h3 class="celebration__card-title">Why is it celebrated</h3>
+                    <p class="celebration__card-description">International Day promotes global awareness, cultural understanding, and celebrates the diversity that makes our world community stronger and more united.</p>
+                </div>
+                <div class="celebration__card" data-card="importance" tabindex="0" role="button" aria-label="Learn about importance of diversity">
+                    <h3 class="celebration__card-title">Importance of diversity</h3>
+                    <p class="celebration__card-description">Diversity enriches our perspectives, promotes tolerance, and helps students develop global citizenship skills essential for the modern world.</p>
+                </div>
+                <div class="celebration__card" data-card="history" tabindex="0" role="button" aria-label="Learn about history of International Day">
+                    <h3 class="celebration__card-title">History of International Day</h3>
+                    <p class="celebration__card-description">Established to foster international cooperation and understanding, this day highlights the importance of cultural exchange and global harmony.</p>
+                </div>
+                <div class="celebration__card" data-card="how" tabindex="0" role="button" aria-label="Learn how International Day is celebrated">
+                    <h3 class="celebration__card-title">How it is celebrated</h3>
+                    <p class="celebration__card-description">Through cultural performances, traditional food exhibitions, flag displays, and interactive activities that showcase different countries and cultures.</p>
+                </div>
+                <div class="celebration__card" data-card="cultural" tabindex="0" role="button" aria-label="Learn about cultural exchange">
+                    <h3 class="celebration__card-title">Cultural exchange</h3>
+                    <p class="celebration__card-description">Students learn about different traditions, languages, and customs, building bridges of understanding and respect across cultures.</p>
+                </div>
+                <a class="external-links" href="Why Celebrated.html">
+                <div class="celebration__card celebration__card--cta" data-card="learn" tabindex="0" role="button" aria-label="Learn more about International Day">
+                    <h3 class="celebration__card-title">Learn more</h3>
+                    <p class="celebration__card-description">Discover additional resources</p>
+                </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="contact__title">Contacts</h2>
+            <div class="contact__grid">
+                <div class="contact__item">
+                    <h3 class="contact__item-title">Numbers</h3>
+                    <p class="contact__item-content">9799587822</p>
+                    <p class="contact__item-content">13245675891</p>
+                </div>
+                <div class="contact__item">
+                    <h3 class="contact__item-title">Mail</h3>
+                    <p class="contact__item-content">example@mitgurukul.com</p>
+                    <p class="contact__item-content">example@gmail.com</p>
+                </div>
+                <div class="contact__item">
+                    <h3 class="contact__item-title">Location</h3>
+                    <p class="contact__item-content">Mit gurukul world school,</p>
+                    <p class="contact__item-content">Pune, Maharashtra, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for card details -->
+    <div class="modal" id="cardModal">
+        <div class="modal__content">
+            <span class="modal__close" id="modalClose">&times;</span>
+            <h2 class="modal__title" id="modalTitle"></h2>
+            <p class="modal__description" id="modalDescription"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
