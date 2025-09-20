@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Festival Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gold: #ffd700;
+      --deep-red: #8B0000;
+      --cream: #F5F5DC;
+      --orange: #f7931e;
+      --panel-bg: #ffecb3;
+      --panel-text: #333;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      margin: 0;
+      color: var(--panel-text);
+    }
+    .header {
+      background: var(--primary-gold);
+      padding: 1rem 0.5rem;
+      border-bottom: 4px solid var(--deep-red);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .logo {
+      background: var(--primary-gold);
+      color: #222;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      margin-right: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-decoration: none;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-item {
+      background: var(--deep-red);
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0.5rem 2rem;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      border: 1px solid #8B451344;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-item:hover {
+      background: var(--orange);
+      color: var(--deep-red);
+    }
+    .nav-item.active {
+      background: var(--orange);
+      color: var(--deep-red);
+      font-weight: 600;
+    }
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      border-bottom: 6px solid var(--deep-red);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+      transition: filter 0.4s;
+    }
+    .hero.blur img {
+      filter: blur(4px) brightness(0.85);
+    }
+    .hero-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      color: #222;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      background: rgba(255,255,255,0.5);
+      padding: 1.2rem 0;
+      text-align: center;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-radius: 0 0 12px 12px;
+      font-weight: 700;
+      z-index: 2;
+    }
+    .panel {
+      background: var(--orange);
+      margin: 2rem auto;
+      max-width: 90%;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--deep-red);
+    }
+    .panel-text {
+      font-size: 1.1rem;
+      color: var(--panel-text);
+      line-height: 1.7;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 1.5rem; padding: 0.5rem 1rem; }
+      .panel-title { font-size: 1.3rem; }
+      .panel { padding: 1rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">Festival Calendar</a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item active">About</a>
+      <a href="stories.html" class="nav-item">Stories</a>
+      <a href="gallery.html" class="nav-item">Gallery</a>
+      <a href="calendar.html" class="nav-item">Calendar</a>
+    </nav>
+  </header>
+  <div class="hero">
+    <img src="https://images.pexels.com/photos/1191639/pexels-photo-1191639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Festival lights and bunting">
+    <div class="hero-title">ABOUT US</div>
+  </div>
+  <main>
+    <section class="panel">
+      <div class="panel-title">Our Mission</div>
+      <div class="panel-text">
+        Our mission is to create a vibrant digital space that celebrates, preserves, and shares the rich traditions of Indian festivals. We believe that cultural heritage is not just about remembering the past, but about understanding its relevance in our modern world and passing these precious traditions to future generations.
+        <br><br>
+        Through interactive storytelling, stunning visuals, and comprehensive information, we aim to make festival celebrations more meaningful, educational, and accessible to everyone - whether you're deeply rooted in these traditions or discovering them for the first time.
+        <br><br>
+        We strive to bridge the gap between ancient wisdom and contemporary life, helping families create lasting memories while honoring the spiritual and cultural significance of each celebration.
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title">Why This Website Exists</div>
+      <div class="panel-text">
+        In our rapidly changing world, there's a growing disconnect between younger generations and their cultural roots. Many young people today know when festivals occur but may not understand their deeper significance, historical context, or the beautiful stories behind each celebration.
+        <br><br>
+        This website exists to fill that gap. We provide not just dates and basic information, but rich, engaging narratives that explain why these festivals matter, how they've evolved over time, and what they mean for our spiritual and social well-being.
+        <br><br>
+        We recognize that culture is living and breathing - it must be experienced, shared, and adapted to remain relevant. Our platform serves as a modern vessel for ancient wisdom, ensuring that the flame of tradition continues to burn bright in contemporary hearts and homes.
+        <br><br>
+        By making cultural education interactive and accessible, we hope to inspire pride in heritage, foster interfaith understanding, and create a global community united by appreciation for diversity and tradition.
+      </div>
+    </section>
+    <section class="panel">
+      <div class="panel-title">About the Creator</div>
+      <div class="panel-text">
+        Hello! I'm a passionate advocate for cultural preservation and digital storytelling. Growing up in a family that celebrated every festival with great enthusiasm, I learned early on that these celebrations are more than just rituals - they're expressions of our deepest values, hopes, and connections to something greater than ourselves.
+        <br><br>
+        As I watched younger family members and friends gradually losing touch with our traditions, I felt compelled to create something that could bridge this generational gap. My background in technology and deep love for Indian culture led me to envision this platform as a modern solution to an age-old challenge.
+        <br><br>
+        I believe that technology should serve humanity's highest purposes - and what could be more important than preserving the wisdom, beauty, and spiritual richness of our ancestors for future generations? This website is my contribution to that noble goal.
+        <br><br>
+        Through careful research, collaboration with elders and cultural experts, and a commitment to authentic representation, I've tried to create a resource that honors our traditions while making them accessible to modern audiences worldwide.
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">How to Make the Most of This Website</div>
+      <div class="panel-text">
+        Start your journey by exploring our interactive Calendar to discover upcoming festivals and their significance. Each festival entry provides detailed information about dates, rituals, and cultural importance, helping you plan meaningful celebrations.
+        <br><br>
+        Visit our Stories section to dive deep into the rich narratives behind each festival. Here you'll find personal accounts, traditional legends, and the spiritual meanings that make these celebrations so special. Use the festival buttons to switch between different celebrations and discover new traditions.
+        <br><br>
+        Our Gallery offers a visual feast of festival celebrations, decorations, and cultural elements. Click on any image to learn more about its significance and cultural context. These images can inspire your own celebrations and help you understand the visual language of Indian festivals.
+        <br><br>
+        Whether you're planning your first Diwali celebration, want to understand the deeper meaning of Holi, or are curious about regional variations in festival traditions, this platform provides the resources and inspiration you need to celebrate with authenticity and joy.
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">Join Our Community</div>
+      <div class="panel-text">
+        Festivals are meant to be shared, and we believe in the power of community to keep traditions alive. We encourage you to use this platform not just as a resource, but as a starting point for deeper engagement with your cultural heritage.
+        <br><br>
+        Consider organizing festival celebrations in your neighborhood, sharing traditional recipes with friends, or teaching children about the stories behind each celebration. Document your own festival experiences and share them with others who might be learning about these traditions for the first time.
+        <br><br>
+        Remember that culture is living and breathing - it evolves while maintaining its core essence. Feel free to adapt these traditions to your modern lifestyle while honoring their spiritual significance. What matters most is the love, devotion, and community spirit that these festivals inspire.
+        <br><br>
+        <strong>Ready to begin your journey?</strong> Start by exploring our <a href="stories.html" style="color: var(--deep-red); text-decoration: underline; font-weight: 600;">Festival Stories</a>, browse our <a href="gallery.html" style="color: var(--deep-red); text-decoration: underline; font-weight: 600;">Visual Gallery</a>, or plan ahead with our <a href="calendar.html" style="color: var(--deep-red); text-decoration: underline; font-weight: 600;">Interactive Calendar</a>.
+      </div>
+    </section>
+  </main>
+  <script>
+    window.addEventListener('scroll', function() {
+      const hero = document.querySelector('.hero');
+      if (window.scrollY > 40) {
+        hero.classList.add('blur');
+      } else {
+        hero.classList.remove('blur');
+        // Ensure image is not blurred at the top
+        hero.querySelector('img').style.filter = 'brightness(0.85)';
+      }
+    });
+  </script>
+</body>
+</html>

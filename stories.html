@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stories - Festival Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gold: #ffd700;
+      --deep-red: #8B0000;
+      --cream: #F5F5DC;
+      --orange: #f7931e;
+      --panel-text: #333;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--deep-red);
+      margin: 0;
+      color: var(--panel-text);
+    }
+    .header {
+      background: var(--primary-gold);
+      padding: 1rem 0.5rem;
+      border-bottom: 4px solid var(--deep-red);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .logo {
+      background: var(--primary-gold);
+      color: #222;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      margin-right: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-decoration: none;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-item {
+      background: var(--deep-red);
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0.5rem 2rem;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      border: 1px solid #8B451344;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-item:hover {
+      background: var(--orange);
+      color: var(--deep-red);
+    }
+    .nav-item.active {
+      background: var(--orange);
+      color: var(--deep-red);
+      font-weight: 600;
+    }
+    .stories-section {
+      background: var(--orange);
+      margin: 2rem auto;
+      max-width: 90%;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .stories-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--deep-red);
+    }
+    .stories-text {
+      font-size: 1.1rem;
+      color: var(--panel-text);
+      line-height: 1.7;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    .festival-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      max-width: 90%;
+      flex-wrap: wrap;
+    }
+    .festival-btn {
+      background: var(--orange);
+      color: var(--deep-red);
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .festival-btn:hover {
+      background: var(--primary-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .celebration-panel {
+      background: var(--orange);
+      margin: 1.5rem auto;
+      max-width: 90%;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      padding: 2rem 1rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .celebration-content {
+      flex: 1;
+    }
+    .celebration-image {
+      flex: 0 0 300px;
+      height: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .celebration-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .celebration-image img:hover {
+      transform: scale(1.05);
+    }
+    .celebration-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--deep-red);
+      text-align: center;
+    }
+    .celebration-text {
+      font-size: 1.1rem;
+      color: var(--panel-text);
+      line-height: 1.8;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    @media (max-width: 768px) {
+      .stories-title { font-size: 1.8rem; }
+      .celebration-title { font-size: 1.5rem; }
+      .festival-buttons { flex-direction: column; align-items: center; }
+      .festival-btn { width: 200px; }
+      .celebration-panel {
+        flex-direction: column;
+        text-align: center;
+      }
+      .celebration-image {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+        height: 200px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">Festival Calendar</a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="stories.html" class="nav-item active">Stories</a>
+      <a href="gallery.html" class="nav-item">Gallery</a>
+      <a href="calendar.html" class="nav-item">Calendar</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="stories-section">
+      <div class="stories-title">Stories</div>
+      <div class="stories-text">
+        Stories are the heart of our cultural heritage, preserving the wisdom, traditions, and values of our ancestors for future generations. Through these festival stories, we share not just the rituals and celebrations, but the deeper meanings behind each tradition. This page serves as a bridge connecting past and present, helping younger generations understand why we celebrate, how these festivals bring communities together, and what spiritual and cultural significance they hold. By documenting our personal experiences and family traditions, we ensure that the rich tapestry of Indian culture continues to flourish and inspire others to embrace their own cultural roots with pride and understanding.
+      </div>
+    </section>
+
+    <div class="festival-buttons">
+      <button class="festival-btn" onclick="showFestival('diwali')">Diwali</button>
+      <button class="festival-btn" onclick="showFestival('dassura')">Dassura</button>
+      <button class="festival-btn" onclick="showFestival('ugadi')">Ugadi</button>
+      <button class="festival-btn" onclick="showFestival('ganesh')">Ganesh Chaturthi</button>
+      <button class="festival-btn" onclick="showFestival('holi')">Holi</button>
+      <button class="festival-btn" onclick="showFestival('navratri')">Navratri</button>
+    </div>
+
+    <section class="celebration-panel" id="story-panel-1">
+      <div class="celebration-content">
+        <div class="celebration-title" id="story-title-1">How we celebrate Diwali</div>
+        <div class="celebration-text" id="story-text-1">
+          Diwali, the Festival of Lights, is the most celebrated Hindu festival worldwide. Our celebration begins weeks before with thorough cleaning and decorating of homes, symbolizing the removal of negativity and welcoming of prosperity. We create intricate rangoli patterns at our doorsteps using colored powders, rice, and flower petals. The lighting of diyas (oil lamps) is central to our celebration - we place them throughout our homes, creating a magical atmosphere that represents the victory of light over darkness. Traditional sweets like ladoos, barfis, and jalebis are prepared and shared with neighbors and friends. The exchange of gifts, bursting of fireworks, and family gatherings make this festival a time of immense joy and togetherness.
+        </div>
+      </div>
+      <div class="celebration-image" id="story-image-1">
+        <img src="https://images.unsplash.com/photo-1636110168493-9b7b8094d68a?w=400&h=300&fit=crop" alt="Mother and daughter making flower rangoli and lighting diyas during Diwali">
+      </div>
+    </section>
+
+    <section class="celebration-panel" id="story-panel-2">
+      <div class="celebration-image" id="story-image-2">
+        <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=400&h=300&fit=crop" alt="Beautiful arrangement of traditional oil lamps with warm golden glow">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title" id="story-title-2">The spiritual significance of Diwali</div>
+        <div class="celebration-text" id="story-text-2">
+          Beyond the festivities, Diwali holds profound spiritual meaning. It commemorates Lord Rama's return to Ayodhya after 14 years of exile, when the entire kingdom lit oil lamps to welcome their beloved king. The festival also honors Goddess Lakshmi, the deity of wealth and prosperity, who is believed to visit well-lit and clean homes on this auspicious night. Each of the five days of Diwali has its own significance - from honoring Lord Dhanvantari (the divine physician) to celebrating the bond between siblings on Bhai Dooj. The festival teaches us that no matter how dark our circumstances may seem, the light of knowledge, goodness, and divine grace can always illuminate our path.
+        </div>
+      </div>
+    </section>
+    <!-- Why Festivals Matter Section -->
+    <section class="celebration-panel" style="margin-top: 3rem;">
+      <div class="celebration-content">
+        <div class="celebration-title">Why Festivals Matter in Modern Times</div>
+        <div class="celebration-text">
+          In our fast-paced digital world, festivals serve as anchors that connect us to our roots, values, and communities. They provide structured opportunities for families to come together, share meals, and create lasting memories. Beyond the joy and celebration, festivals teach important life lessons - Diwali reminds us that light always triumphs over darkness, Holi teaches us about forgiveness and new beginnings, and Ganesh Chaturthi shows us the importance of removing obstacles through devotion and perseverance.
+          <br><br>
+          These celebrations also play a crucial role in preserving cultural identity and passing down wisdom from one generation to the next. Through festival stories, rituals, and traditions, children learn about their heritage, develop cultural pride, and understand their place in the larger tapestry of human experience. Festivals create a sense of belonging and continuity that transcends geographical boundaries and generational gaps.
+          <br><br>
+          Moreover, festivals promote values of sharing, compassion, and community service. During these celebrations, people open their homes to neighbors, prepare food for the less fortunate, and engage in acts of charity. They remind us that true happiness comes not from individual success but from collective well-being and mutual support.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=400&h=300&fit=crop" alt="Indian family celebrating festival together with traditional diyas and decorations">
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="celebration-panel" style="background: var(--primary-gold); color: var(--deep-red);">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=300&fit=crop" alt="Children and families celebrating with colorful festival decorations">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title" style="color: var(--deep-red);">Share Your Festival Stories</div>
+        <div class="celebration-text" style="color: var(--deep-red);">
+          We believe every family has unique ways of celebrating these beautiful festivals. Your personal stories, family recipes, decoration ideas, and celebration memories contribute to the rich mosaic of Indian culture. Whether it's your grandmother's special ladoo recipe for Diwali, your family's unique Holi traditions, or the way your community celebrates Ganesh Chaturthi, these stories matter.
+          <br><br>
+          By sharing our experiences, we create a living library of cultural practices that can inspire and guide others. We encourage you to document your celebrations, take photos of your decorations, and write down the stories your elders share. Together, we can ensure that these precious traditions continue to flourish and evolve while maintaining their spiritual essence and cultural significance.
+          <br><br>
+          <strong>Ready to see these stories come to life?</strong> <a href="gallery.html" style="color: var(--deep-red); text-decoration: underline; font-weight: 600;">Visit our Gallery</a> to explore stunning visuals of festival celebrations, or check our <a href="calendar.html" style="color: var(--deep-red); text-decoration: underline; font-weight: 600;">Calendar</a> to plan your upcoming celebrations!
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Festival Panels -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Karva Chauth - Love and Devotion</div>
+        <div class="celebration-text">
+          Karva Chauth is a beautiful festival celebrating the bond between married couples. Women observe a day-long fast for their husband's long life and prosperity, breaking it only after seeing the moon. The celebration includes intricate henna designs, beautiful traditional outfits, and the exchange of gifts. This festival strengthens the emotional bond between spouses and celebrates the power of love and devotion in marriage.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=300&fit=crop" alt="Beautiful henna designs on hands during Karva Chauth celebration">
+      </div>
+    </section>
+
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=400&h=300&fit=crop" alt="Traditional Indian sweets and treats for festival celebrations">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Festival Foods and Traditions</div>
+        <div class="celebration-text">
+          Food plays a central role in all Indian festivals, with each celebration having its special dishes and sweets. From the rich ghee-laden ladoos of Diwali to the colorful gulal-dusted snacks of Holi, these traditional recipes have been passed down through generations. The preparation of festival foods brings families together, with recipes shared between mothers and daughters, creating lasting memories and preserving culinary heritage.
+        </div>
+      </div>
+    </section>
+
+    <!-- Traditional Festival Foods Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Traditional Festival Foods</div>
+        <div class="celebration-text">
+          Festival foods are more than mere sustenance—they are edible expressions of our cultural identity and spiritual beliefs. Each dish has a story, a meaning, and a connection to our ancestors. During Diwali, we prepare sweets like ladoos and barfis, symbolizing the sweetness we wish to bring into our lives. Holi celebrates with gujiya and thandai, representing the joy and intoxication of spring. These recipes have been passed down through generations, carrying within them the love and wisdom of our grandmothers.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop" alt="Traditional Indian festival sweets and delicacies arranged beautifully">
+      </div>
+    </section>
+
+    <!-- Festival Music and Dance Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Traditional Indian classical dancers performing during festival">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Music and Dance: The Soul of Celebrations</div>
+        <div class="celebration-text">
+          No Indian festival is complete without music and dance. From the rhythmic beats of dhol during Navratri to the devotional bhajans of Ganesh Chaturthi, music creates the emotional landscape of our celebrations. Classical dances like Bharatanatyam and folk dances like Garba tell stories of gods and goddesses, bringing ancient tales to life. These performances are not just entertainment—they are prayers in motion, connecting the divine with the earthly through art.
+        </div>
+      </div>
+    </section>
+
+    <!-- Festival Decorations and Art Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">The Art of Festival Decorations</div>
+        <div class="celebration-text">
+          Indian festivals are visual feasts, adorned with intricate decorations that transform ordinary spaces into sacred realms. Rangoli patterns at doorsteps welcome prosperity, while marigold garlands add vibrant color and fragrance. Paper lanterns, banana leaves, and coconut decorations each carry symbolic meaning. The art of decoration is passed down through generations, with each family adding their unique touch to time-honored traditions.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1578166554796-0a50b2480d21?w=400&h=300&fit=crop" alt="Colorful rangoli patterns and festival decorations with flowers and diyas">
+      </div>
+    </section>
+
+    <!-- Community Bonding Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1544531586-fbb6a5e5eac7?w=400&h=300&fit=crop" alt="Community gathering during Indian festival celebration with people of all ages">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Festivals as Community Builders</div>
+        <div class="celebration-text">
+          Indian festivals break down social barriers and bring communities together in celebration. Neighbors who rarely speak throughout the year exchange sweets and greetings during festivals. Rich and poor, young and old, all participate in the collective joy. Community kitchens (langars) feed thousands, pandals welcome everyone regardless of background, and processions unite diverse groups in common purpose. These festivals remind us that we are part of something larger than ourselves.
+        </div>
+      </div>
+    </section>
+
+    <!-- Environmental Awareness Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Eco-Friendly Festival Celebrations</div>
+        <div class="celebration-text">
+          Modern festival celebrations are embracing environmental consciousness while maintaining traditional values. Clay diyas are replacing plastic decorations, natural colors are preferred for Holi, and eco-friendly Ganesha idols dissolve harmlessly in water. Solar-powered lights illuminate celebrations, and communities organize tree-planting drives during festivals. This green approach honors our ancient principle of living in harmony with nature while celebrating our cultural heritage.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?w=400&h=300&fit=crop" alt="Eco-friendly festival decorations with natural materials and clay diyas">
+      </div>
+    </section>
+
+    <!-- Children and Festivals Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1607057049219-914c081c2f54?w=400&h=300&fit=crop" alt="Children dressed in traditional clothes enjoying festival celebrations">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Teaching Traditions to the Next Generation</div>
+        <div class="celebration-text">
+          Children are the living bridges between past and future, carrying forward the torch of cultural traditions. Through festivals, they learn values, stories, and customs that shape their identity. Dressing up in traditional clothes, participating in prayers, and helping with preparations gives them hands-on experience of their heritage. Story-telling sessions during festivals pass down moral lessons embedded in ancient tales, ensuring that wisdom flows from one generation to the next.
+        </div>
+      </div>
+    </section>
+
+    <!-- Digital Age Festivals Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Festivals in the Digital Age</div>
+        <div class="celebration-text">
+          Technology has transformed how we celebrate festivals while preserving their essence. Virtual pujas connect family members across continents, social media shares festival joy globally, and apps help organize community events. Online tutorials teach traditional recipes and crafts to younger generations. While the medium may be modern, the message remains timeless—festivals continue to unite hearts and preserve culture, now reaching beyond geographical boundaries.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop" alt="Family video calling relatives during festival celebration connecting across distances">
+      </div>
+    </section>
+
+    <!-- Festival Economics Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1578403881967-084f34806ba4?w=400&h=300&fit=crop" alt="Traditional festival market with vendors selling decorations and sweets">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">The Economic Impact of Festivals</div>
+        <div class="celebration-text">
+          Festivals are significant economic drivers, supporting millions of livelihoods across India. From sweet shop owners to decoration vendors, from clothing retailers to event organizers, festivals create a thriving ecosystem of small businesses. Artisans who craft diyas, rangoli materials, and festival decorations see their peak season during these celebrations. This economic activity preserves traditional crafts while providing sustainable income to countless families.
+        </div>
+      </div>
+    </section>
+
+    <!-- Spiritual Significance Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">The Spiritual Journey Through Festivals</div>
+        <div class="celebration-text">
+          At their core, festivals are spiritual journeys that cleanse the soul and renew faith. Each ritual has symbolic meaning—lighting diyas dispels inner darkness, fasting purifies the body and mind, and prayers connect us with the divine. Festivals provide structured opportunities for reflection, gratitude, and spiritual growth. They remind us of life's deeper purposes beyond material pursuits and help us maintain connection with our spiritual roots.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1605379399143-67d1e57af2d6?w=400&h=300&fit=crop" alt="Peaceful meditation and prayer during festival celebration with diyas and flowers">
+      </div>
+    </section>
+
+    <!-- Regional Variations Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1578403881445-f0e84094c8b2?w=400&h=300&fit=crop" alt="Different regional styles of celebrating the same festival across India">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Regional Flavors of Common Festivals</div>
+        <div class="celebration-text">
+          India's diversity shines brighitest during festivals, where the same celebration takes on unique regional characteristics. Diwali in Bengal features Kali Puja, while in South India it honors Lord Krishna's victory over Narakasura. Holi in Mathura differs vastly from Holi in Punjab, each region adding its local customs, foods, and traditions. This beautiful diversity within unity showcases how festivals adapt to local culture while maintaining their universal spiritual message.
+        </div>
+      </div>
+    </section>
+
+    <!-- Women in Festivals Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Women: The Heart of Festival Celebrations</div>
+        <div class="celebration-text">
+          Women are often the primary custodians of festival traditions, passing down recipes, rituals, and stories through generations. From organizing elaborate decorations to coordinating community events, women's leadership in festivals is remarkable. Special festivals like Karva Chauth and Teej celebrate feminine strength and devotion. In many traditions, it's the women who maintain the oral histories, teach children the significance of rituals, and ensure that cultural practices remain alive and vibrant.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1580130734461-6be17cb7d2e2?w=400&h=300&fit=crop" alt="Women in traditional attire preparing for festival celebrations with mehendi and decorations">
+      </div>
+    </section>
+
+    <!-- Festival Fashion Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&h=300&fit=crop" alt="Beautiful traditional Indian festival clothing and jewelry display">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">Traditional Attire: Wearing Our Culture</div>
+        <div class="celebration-text">
+          Festival clothing is more than fashion—it's cultural expression and spiritual preparation. Bright colors like red, yellow, and gold are preferred for their auspicious meanings. Silk sarees, embroidered kurtas, and traditional jewelry transform individuals into living representations of cultural beauty. Each region has its distinctive festive attire, from Gujarati chaniya cholis to South Indian pattu sarees. Wearing traditional clothes during festivals connects us with our ancestors and adds to the celebratory atmosphere.
+        </div>
+      </div>
+    </section>
+
+    <!-- Diaspora Celebrations Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">Festivals in the Global Indian Diaspora</div>
+        <div class="celebration-text">
+          Indian festivals have traveled across oceans, taking root in countries worldwide through immigrant communities. From Diwali celebrations in London's Trafalgar Square to Holi festivals in New York's parks, these events have become multicultural celebrations. Local communities adapt traditions to new environments while maintaining core values. These global celebrations have introduced Indian culture to diverse audiences, creating bridges of understanding between different communities and spreading the universal message of light overcoming darkness.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400&h=300&fit=crop" alt="Global celebration of Indian festival with diverse communities participating">
+      </div>
+    </section>
+
+    <!-- Historical Evolution Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=300&fit=crop" alt="Ancient temple architecture representing historical roots of Indian festivals">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">The Historical Evolution of Festival Traditions</div>
+        <div class="celebration-text">
+          Indian festivals have evolved over millennia, adapting to changing times while preserving their essential spirit. Ancient Vedic rituals have transformed into colorful public celebrations. Historical events have been woven into festival narratives, creating layers of meaning. Colonial influences introduced new elements, while post-independence celebrations emphasized national unity. This evolution shows the dynamic nature of traditions—they remain relevant by adapting to contemporary needs while maintaining their core spiritual and cultural significance.
+        </div>
+      </div>
+    </section>
+
+    <!-- Scientific Aspects Section -->
+    <section class="celebration-panel">
+      <div class="celebration-content">
+        <div class="celebration-title">The Science Behind Festival Timing</div>
+        <div class="celebration-text">
+          Ancient Indian festival calendars demonstrate sophisticated astronomical knowledge. Festivals align with lunar cycles, seasonal changes, and solar positions, optimizing their health and agricultural benefits. Diwali's timing coincides with new moon and post-harvest period, while Holi celebrates spring's arrival when weather patterns change. These scientific considerations ensure festivals support physical health, mental well-being, and agricultural cycles. The integration of cosmic knowledge with spiritual practice showcases the holistic wisdom of our ancestors.
+        </div>
+      </div>
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=400&h=300&fit=crop" alt="Night sky with moon and stars representing astronomical timing of festivals">
+      </div>
+    </section>
+
+    <!-- Future of Festivals Section -->
+    <section class="celebration-panel">
+      <div class="celebration-image">
+        <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=300&fit=crop" alt="Young generation learning traditional festival customs from elders">
+      </div>
+      <div class="celebration-content">
+        <div class="celebration-title">The Future of Festival Celebrations</div>
+        <div class="celebration-text">
+          As we move forward, festivals continue to evolve while maintaining their cultural core. Virtual reality might soon allow immersive participation in distant celebrations, AI could help personalize festival experiences, and sustainable practices will become standard. However, the fundamental human need for community, spirituality, and cultural connection remains constant. The challenge and opportunity lie in embracing innovation while preserving authenticity, ensuring that future generations inherit both the wisdom of the past and the tools to create meaningful celebrations in their contemporary context.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Navigation -->
+  <footer style="background: var(--primary-gold); margin-top: 3rem; padding: 2rem; text-align: center; border-radius: 12px 12px 0 0;">
+    <div style="color: var(--deep-red); font-size: 1.1rem; margin-bottom: 1rem; font-family: 'Playfair Display', serif;">
+      Explore More Festival Content
+    </div>
+    <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+      <a href="index.html" style="color: var(--deep-red); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; background: var(--cream); border-radius: 6px;">🏠 Home</a>
+      <a href="about.html" style="color: var(--deep-red); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; background: var(--cream); border-radius: 6px;">ℹ️ About</a>
+      <a href="gallery.html" style="color: var(--deep-red); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; background: var(--cream); border-radius: 6px;">🎨 Gallery</a>
+      <a href="calendar.html" style="color: var(--deep-red); text-decoration: none; font-weight: 600; padding: 0.5rem 1rem; background: var(--cream); border-radius: 6px;">📅 Calendar</a>
+    </div>
+    <div style="color: var(--deep-red); margin-top: 1rem; font-size: 0.9rem;">
+      © 2025 Festival Calendar - Celebrating Culture, Preserving Traditions
+    </div>
+  </footer>
+
+  <script>
+    const festivalStories = {
+      diwali: {
+        title1: "How we celebrate Diwali",
+        text1: "Diwali, the Festival of Lights, is the most celebrated Hindu festival worldwide. Our celebration begins weeks before with thorough cleaning and decorating of homes, symbolizing the removal of negativity and welcoming of prosperity. We create intricate rangoli patterns at our doorsteps using colored powders, rice, and flower petals. The lighting of diyas (oil lamps) is central to our celebration - we place them throughout our homes, creating a magical atmosphere that represents the victory of light over darkness. Traditional sweets like ladoos, barfis, and jalebis are prepared and shared with neighbors and friends. The exchange of gifts, bursting of fireworks, and family gatherings make this festival a time of immense joy and togetherness.",
+        title2: "The spiritual significance of Diwali",
+        text2: "Beyond the festivities, Diwali holds profound spiritual meaning. It commemorates Lord Rama's return to Ayodhya after 14 years of exile, when the entire kingdom lit oil lamps to welcome their beloved king. The festival also honors Goddess Lakshmi, the deity of wealth and prosperity, who is believed to visit well-lit and clean homes on this auspicious night. Each of the five days of Diwali has its own significance - from honoring Lord Dhanvantari (the divine physician) to celebrating the bond between siblings on Bhai Dooj. The festival teaches us that no matter how dark our circumstances may seem, the light of knowledge, goodness, and divine grace can always illuminate our path.",
+        image1: "https://images.unsplash.com/photo-1636110168493-9b7b8094d68a?w=400&h=300&fit=crop",
+        alt1: "Mother and daughter making flower rangoli and lighting diyas during Diwali",
+        image2: "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=400&h=300&fit=crop",
+        alt2: "Beautiful arrangement of traditional oil lamps with warm golden glow"
+      },
+      dassura: {
+        title1: "How we celebrate Dassura",
+        text1: "Dassura (Dussehra) marks the victory of good over evil, celebrating Lord Rama's triumph over Ravana. We create elaborate effigies of Ravana and burn them in grand celebrations. Families gather to watch Ram Lila performances that depict the epic story of Ramayana. We prepare special foods like jalebi and samosas, and children dress up as characters from the epic. The festival teaches us about righteousness and the importance of following dharma in our lives.",
+        title2: "Traditional Dassura customs",
+        text2: "Our Dassura celebrations include visiting temples, performing special prayers, and seeking blessings from elders. We exchange gifts and sweets with neighbors and friends. Many communities organize processions with decorated chariots and traditional music. The highlight is the burning of Ravana's effigy, symbolizing the destruction of evil forces. Young people participate in cultural programs, and the entire community comes together to celebrate this victory of righteousness.",
+        image1: "https://images.unsplash.com/photo-1578403881967-084f34806ba4?w=400&h=300&fit=crop",
+        alt1: "Dussehra celebration with giant Ravana effigy ready for burning",
+        image2: "https://images.unsplash.com/photo-1566733956774-c1e1dbb0f45b?w=400&h=300&fit=crop",
+        alt2: "Traditional temple with devotees during Dussehra festivities"
+      },
+      ugadi: {
+        title1: "How we celebrate Ugadi",
+        text1: "Ugadi marks the Telugu New Year, bringing hope and new beginnings. We start the day with an oil bath and wear new clothes. The house is decorated with mango leaves and colorful rangoli. We prepare the special Ugadi pachadi, a unique dish that combines six different tastes representing life's varied experiences. Families gather to share this special meal and seek blessings for the coming year. We also visit temples and participate in cultural programs.",
+        title2: "Ugadi traditions and rituals",
+        text2: "Traditional Ugadi celebrations include reading the Panchanga (almanac) to learn about the year's predictions. We perform special prayers and offer flowers to deities. The preparation of Ugadi pachadi is a beautiful ritual where each family member tastes it, reminding us to accept all of life's experiences. We exchange greetings and gifts, and many families organize feasts for friends and relatives. The festival emphasizes renewal, hope, and the cyclical nature of life.",
+        image1: "https://images.unsplash.com/photo-1605379399642-870262d3d051?w=400&h=300&fit=crop",
+        alt1: "Traditional Ugadi decorations with fresh mango leaves and rangoli",
+        image2: "https://images.unsplash.com/photo-1578403881445-f0e84094c8b2?w=400&h=300&fit=crop",
+        alt2: "Ugadi traditional food preparations with special ingredients"
+      },
+      ganesh: {
+        title1: "How we celebrate Ganesh Chaturthi",
+        text1: "Ganesh Chaturthi honors Lord Ganesha, the remover of obstacles and patron of arts and sciences. We bring beautiful Ganesha idols home and create elaborate decorations. Daily prayers are performed with offerings of modaks (his favorite sweet), flowers, and incense. Communities organize grand celebrations with cultural programs, music, and dance. The festival culminates with the immersion ceremony, where we bid farewell to Ganesha with processions filled with devotional songs and dancing.",
+        title2: "Ganesh festival customs",
+        text2: "Our Ganesh celebrations involve creating beautiful pandals (temporary structures) decorated with lights and flowers. We prepare special offerings like modaks, ladoos, and coconut rice. Children participate in cultural activities and competitions. The community comes together to organize processions with dhol-tasha performances and traditional folk dances. We seek Ganesha's blessings for wisdom, prosperity, and success in new ventures. The festival promotes unity and devotion among all age groups.",
+        image1: "https://images.unsplash.com/photo-1630670919020-9d9e94a2b56c?w=400&h=300&fit=crop",
+        alt1: "Beautifully decorated Lord Ganesha idol with marigold flowers and offerings",
+        image2: "https://images.unsplash.com/photo-1608099226308-db34bdadbf8e?w=400&h=300&fit=crop",
+        alt2: "Ganesh Chaturthi procession with devotees carrying decorated idol"
+      },
+      holi: {
+        title1: "How we celebrate Holi",
+        text1: "Holi, the Festival of Colors, celebrates the arrival of spring and the victory of good over evil. We gather in open spaces to play with vibrant colored powders and water. Traditional sweets like gujiya and thandai are prepared and shared. The festival begins with Holika Dahan, where we light bonfires and pray for the destruction of evil. Friends and families come together to dance, sing, and celebrate with joyous abandon, forgetting all differences and embracing each other with colored hands.",
+        title2: "Holi traditions and joy",
+        text2: "Our Holi celebrations include preparing natural colors from flowers and herbs. We visit friends and relatives, applying colors and sharing festive treats. Traditional folk songs and dances fill the air with celebration. Water balloons and pichkaris (water guns) add to the playful atmosphere. The festival teaches us about love, forgiveness, and the renewal of relationships. Communities organize cultural programs, and the entire day is filled with laughter, music, and the spirit of togetherness.",
+        image1: "https://images.unsplash.com/photo-1615813967515-e1838c1c5116?w=400&h=300&fit=crop",
+        alt1: "Vibrant Holi celebration with people throwing colorful gulal in the air",
+        image2: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=300&fit=crop",
+        alt2: "Children and families joyfully celebrating with Holi colors and water"
+      },
+      navratri: {
+        title1: "How we celebrate Navratri",
+        text1: "Navratri, meaning 'nine nights,' is a vibrant festival dedicated to Goddess Durga and her nine divine forms. Each night, we worship a different aspect of the Divine Mother through elaborate prayers, fasting, and cultural programs. The festival is famous for its energetic Garba and Dandiya Raas dances, where communities gather in colorful traditional attire to dance in circles around a lamp or image of the Goddess. We decorate our homes and community spaces with marigold flowers, lights, and beautiful rangoli patterns. Traditional Gujarati and Rajasthani folk music fills the air as people of all ages participate in the celebrations.",
+        title2: "The divine feminine power of Navratri",
+        text2: "Navratri celebrates the triumph of good over evil through the power of the Divine Feminine. Each of the nine nights honors a different form of Goddess Durga - from Shailaputri (daughter of mountains) to Siddhidatri (giver of supernatural powers). The festival teaches us about the strength, compassion, and protective nature of the divine mother. During these nine days, many devotees observe fasts, meditate, and engage in charitable activities. The festival culminates with Dussehra, celebrating the victory of righteousness. Through dance, prayer, and community participation, Navratri reminds us of the power of devotion, unity, and the eternal battle between light and darkness.",
+        image1: "https://images.unsplash.com/photo-1578403881967-084f34806ba4?w=400&h=300&fit=crop",
+        alt1: "Traditional Garba dance in colorful chaniya choli during Navratri celebration",
+        image2: "https://images.unsplash.com/photo-1573056586433-15a607ba8309?w=400&h=300&fit=crop",
+        alt2: "Beautiful Goddess Durga idol during Navratri festival with flowers and lights"
+      },
+      karvaChauth: {
+        title1: "How we celebrate Karva Chauth",
+        text1: "Karva Chauth is a beautiful festival celebrating the bond between married couples. Women observe a day-long fast for their husband's long life and prosperity, breaking it only after seeing the moon. The celebration includes intricate henna designs, beautiful traditional outfits, and the exchange of gifts. This festival strengthens the emotional bond between spouses and celebrates the power of love and devotion in marriage.",
+        image1: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=300&fit=crop",
+        alt1: "Beautiful henna designs on hands during Karva Chauth celebration"
+      },
+      festivalFoods: {
+        title1: "Festival Foods and Traditions",
+        text1: "Food plays a central role in all Indian festivals, with each celebration having its special dishes and sweets. From the rich ghee-laden ladoos of Diwali to the colorful gulal-dusted snacks of Holi, these traditional recipes have been passed down through generations. The preparation of festival foods brings families together, with recipes shared between mothers and daughters, creating lasting memories and preserving culinary heritage.",
+        image1: "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?w=400&h=300&fit=crop",
+        alt1: "Traditional Indian sweets and treats for festival celebrations"
+      },
+      rakshaBandhan: {
+        title1: "How we celebrate Raksha Bandhan",
+        text1: "Raksha Bandhan celebrates the pure bond between brothers and sisters. Sisters tie sacred threads (rakhi) on their brothers' wrists, symbolizing their love and prayers for protection. Brothers, in return, promise to protect their sisters and give them gifts. This festival transcends biological relationships, as friends and neighbors also participate, strengthening community bonds and celebrating the spirit of protection and care.",
+        image1: "https://images.unsplash.com/photo-1629196292841-73b2bce3dc2b?w=400&h=300&fit=crop",
+        alt1: "Colorful rakhi threads and traditional sweets for Raksha Bandhan"
+      },
+      templeCelebrations: {
+        title1: "Temple Celebrations and Community Worship",
+        text1: "Temples become the heart of festival celebrations, where communities gather to offer prayers, participate in rituals, and share the joy of togetherness. The elaborate decorations, devotional music, and collective prayers create an atmosphere of spiritual unity. These communal celebrations foster social bonds, teach cultural values to children, and provide a sense of belonging that strengthens the fabric of society.",
+        image1: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop",
+        alt1: "Traditional temple decorations during festival celebrations"
+      },
+      durgaPuja: {
+        title1: "Durga Puja - Celebrating Divine Feminine",
+        text1: "Durga Puja is a grand celebration honoring Goddess Durga, particularly prominent in Bengal. The festival involves elaborate pandals (temporary structures), artistic clay idols, cultural performances, and community feasts. It celebrates the triumph of good over evil and honors the divine feminine power. The festival brings entire communities together, transcending social barriers and creating a sense of unity and cultural pride.",
+        image1: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
+        alt1: "Magnificent Goddess Durga idol during Durga Puja celebration"
+      },
+      rangoli: {
+        title1: "Rangoli - Art of Welcome",
+        text1: "Rangoli is the traditional art of creating intricate patterns at entrances using colored powders, rice, flower petals, and other materials. These beautiful designs welcome guests and deities into homes during festivals. Each region has its unique style and patterns, passed down through generations. Creating rangoli is a meditative practice that brings families together and adds beauty and positive energy to celebrations.",
+        image1: "https://images.unsplash.com/photo-1578475235584-0e4db942b69a?w=400&h=300&fit=crop",
+        alt1: "Beautiful rangoli patterns made with colorful powders and flowers"
+      },
+      janmashtami: {
+        title1: "How we celebrate Janmashtami",
+        text1: "Janmashtami celebrates the birth of Lord Krishna with midnight prayers, devotional songs, and dramatic enactments of his childhood stories. The festival includes the famous Dahi Handi tradition, where groups form human pyramids to break pots filled with curd. This celebration emphasizes joy, playfulness, and devotion, teaching us about the divine qualities of love, compassion, and righteousness through Krishna's life stories.",
+        image1: "https://images.unsplash.com/photo-1628625617077-1e2b8a2b2c2f?w=400&h=300&fit=crop",
+        alt1: "Lord Krishna idol decorated with flowers during Janmashtami"
+      },
+      musicDance: {
+        title1: "Music and Dance in Festivals",
+        text1: "Music and dance are integral to Indian festival celebrations, with each region having its traditional forms. From the energetic Bhangra of Punjab to the graceful Bharatanatyam of Tamil Nadu, these art forms express joy, devotion, and cultural identity. Festival performances preserve ancient traditions, provide platforms for artistic expression, and create memorable experiences that connect communities across generations.",
+        image1: "https://images.unsplash.com/photo-1609081219059-f0b81219dfbc?w=400&h=300&fit=crop",
+        alt1: "Traditional Indian musical instruments and cultural performances"
+      },
+      baisakhi: {
+        title1: "How we celebrate Baisakhi",
+        text1: "Baisakhi marks the harvest season and is celebrated with great enthusiasm in Punjab and other northern states. The festival includes traditional Bhangra and Gidda dances, community feasts, and visits to gurudwaras. It celebrates the hard work of farmers and the abundance of nature's gifts. The festival also holds religious significance for Sikhs, commemorating the formation of the Khalsa, making it both a cultural and spiritual celebration.",
+        image1: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop",
+        alt1: "Golden wheat fields during harvest season representing Baisakhi"
+      },
+      communityUnity: {
+        title1: "Community Unity in Celebrations",
+        text1: "Indian festivals are powerful catalysts for community unity, bringing people from different backgrounds together in celebration. Neighbors share sweets, families invite friends for feasts, and entire communities participate in processions and cultural events. These celebrations break down social barriers, foster mutual understanding, and create lasting bonds that strengthen the social fabric of society.",
+        image1: "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=400&h=300&fit=crop",
+        alt1: "Community gathering and celebration during Indian festival"
+      },
+      onam: {
+        title1: "How we celebrate Onam",
+        text1: "Onam is Kerala's most important festival, celebrating the harvest season and the mythical return of King Mahabali. The festival features elaborate flower carpets (Pookalam), traditional Sadhya feasts served on banana leaves, and classical Kathakali performances. The celebration lasts for ten days, bringing together people of all communities in Kerala to celebrate unity, prosperity, and cultural heritage.",
+        image1: "https://images.unsplash.com/photo-1566733956774-c1e1dbb0f45b?w=400&h=300&fit=crop",
+        alt1: "Traditional Onam celebration with flower decorations and cultural elements"
+      },
+      festivalFashion: {
+        title1: "Festival Fashion and Traditional Attire",
+        text1: "Each festival brings out the finest traditional clothing, from silk sarees and lehengas to kurtas and dhotis. These garments are not just clothing but expressions of cultural identity and artistic heritage. The vibrant colors, intricate embroidery, and regional styles tell stories of local traditions and craftsmanship. Wearing traditional attire during festivals connects us to our roots and preserves textile arts.",
+        image1: "https://images.unsplash.com/photo-1578403881967-084f34806ba4?w=400&h=300&fit=crop",
+        alt1: "Traditional Indian clothing and festival attire display"
+      },
+      teej: {
+        title1: "How we celebrate Teej",
+        text1: "Teej celebrates the arrival of monsoon and is primarily observed by women who pray for marital happiness and prosperity. The festival includes fasting, swinging on decorated swings, and wearing green clothes that symbolize new life and growth. Traditional songs and dances celebrate the beauty of the rainy season, making it a joyous occasion that connects people with nature's rhythms.",
+        image1: "https://images.unsplash.com/photo-1629196283937-ff8e18c4c875?w=400&h=300&fit=crop",
+        alt1: "Women in traditional green attire celebrating Teej festival"
+      },
+      childrenLearning: {
+        title1: "Children and Festival Learning",
+        text1: "Festivals provide invaluable learning opportunities for children, teaching them about their cultural heritage, moral values, and social responsibilities. Through active participation in rituals, story-telling sessions, and cultural performances, children develop a deep understanding of their traditions. These experiences shape their identity, instill values of respect and compassion, and ensure the continuation of cultural practices.",
+        image1: "https://images.unsplash.com/photo-1570471259219-bcc46e8a26b5?w=400&h=300&fit=crop",
+        alt1: "Children participating in festival celebrations with traditional decorations"
+      },
+      dhanteras: {
+        title1: "How we celebrate Dhanteras",
+        text1: "Dhanteras, the first day of Diwali celebrations, is dedicated to welcoming wealth and prosperity. People purchase gold, silver, and new utensils, believing it brings good fortune. Homes are cleaned and decorated, and prayers are offered to Goddess Lakshmi and Lord Dhanvantari. This festival teaches the importance of hard work, savings, and sharing prosperity with others, while also honoring the divine physicians who bring health and healing.",
+        image1: "https://images.unsplash.com/photo-1636110168493-9b7b8094d68a?w=400&h=300&fit=crop",
+        alt1: "Traditional gold jewelry and decorative items for Dhanteras celebration"
+      },
+      architecture: {
+        title1: "Architecture and Sacred Spaces",
+        text1: "Indian temples and sacred spaces come alive during festivals with elaborate decorations, lighting, and cultural activities. The stunning architecture of these buildings, with their intricate carvings and symbolic designs, provides the perfect backdrop for spiritual celebrations. These spaces serve as community centers where people gather to pray, celebrate, and maintain their connection to the divine and to each other.",
+        image1: "https://images.unsplash.com/photo-1573056586433-15a607ba8309?w=400&h=300&fit=crop",
+        alt1: "Magnificent temple architecture and festival decorations"
+      }
+    };
+
+    function showFestival(festival) {
+      // Add active state to clicked button
+      const buttons = document.querySelectorAll('.festival-btn');
+      buttons.forEach(btn => btn.style.background = 'var(--orange)');
+      event.target.style.background = 'var(--primary-gold)';
+      
+      // Update story content
+      const story = festivalStories[festival];
+      if (story) {
+        document.getElementById('story-title-1').textContent = story.title1;
+        document.getElementById('story-text-1').textContent = story.text1;
+        document.getElementById('story-title-2').textContent = story.title2;
+        document.getElementById('story-text-2').textContent = story.text2;
+        
+        // Update images
+        const img1 = document.querySelector('#story-image-1 img');
+        const img2 = document.querySelector('#story-image-2 img');
+        if (img1) {
+          img1.src = story.image1;
+          img1.alt = story.alt1;
+        }
+        if (img2) {
+          img2.src = story.image2;
+          img2.alt = story.alt2;
+        }
+      }
+    }
+
+    // Initialize with Diwali by default
+    document.addEventListener('DOMContentLoaded', function() {
+      showFestival('diwali');
+      document.querySelector('.festival-btn').style.background = 'var(--primary-gold)';
+    });
+  </script>
+</body>
+</html>

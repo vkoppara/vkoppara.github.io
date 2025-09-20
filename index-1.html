@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Festival Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #ffd700;
+        --secondary: #ff6b35;
+        --accent: #f7931e;
+        --background: #1a1a2e;
+        --text: #333;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--background);
+        color: var(--text);
+        margin: 0;
+        padding: 0;
+      }
+      .landing-header {
+        background: var(--primary);
+        color: var(--background);
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        border-bottom: 4px solid var(--secondary);
+      }
+      .landing-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 60vh;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        color: var(--background);
+        padding: 3rem 1rem;
+      }
+      .landing-hero h1 {
+        font-size: 3rem;
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 1.5rem;
+        color: var(--background);
+      }
+      .landing-hero p {
+        font-size: 1.3rem;
+        max-width: 600px;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .landing-hero img {
+        width: 320px;
+        max-width: 90vw;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        margin-bottom: 2rem;
+      }
+      .landing-actions {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+      .landing-btn {
+        background: var(--secondary);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        padding: 1rem 2.5rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: background 0.2s, color 0.2s;
+        text-decoration: none;
+      }
+      .landing-btn:hover {
+        background: var(--accent);
+        color: var(--background);
+      }
+      .landing-footer {
+        background: var(--background);
+        color: var(--primary);
+        text-align: center;
+        padding: 2rem 0 1rem 0;
+        font-size: 1rem;
+        letter-spacing: 1px;
+      }
+      @media (max-width: 768px) {
+        .landing-hero h1 {
+          font-size: 2rem;
+        }
+        .landing-hero img {
+          width: 90vw;
+        }
+        .landing-actions {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container nav-container">
+        <a href="index.html" class="logo">Festival Calendar</a>
+        <nav class="nav-menu" style="display: flex; gap: 1rem;">
+          <a href="index.html" class="nav-item" style="background: var(--secondary); color: white; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">Home</a>
+          <a href="about.html" class="nav-item" style="background: var(--secondary); color: white; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">About</a>
+          <a href="stories.html" class="nav-item" style="background: var(--secondary); color: white; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">Stories</a>
+          <a href="gallery.html" class="nav-item" style="background: var(--secondary); color: white; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">Gallery</a>
+          <a href="calendar.html" class="nav-item" style="background: var(--secondary); color: white; padding: 0.5rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">Calendar</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="landing-hero">
+        <img src="https://images.pexels.com/photos/1037999/pexels-photo-1037999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Diwali diyas festival lights">
+        <h1>Journey Through the Festival of Lights</h1>
+        <p>
+          Welcome to an immersive exploration of Diwali and India's most cherished celebrations! Experience the magic of the Festival of Lights through authentic storytelling, stunning visuals, and interactive elements that bring ancient traditions to life.
+        </p>
+        <p>
+          From the gentle glow of traditional diyas to the intricate patterns of rangoli, from the spiritual significance of each ritual to the joyous celebrations that unite families and communities - discover why these festivals have illuminated hearts and homes for thousands of years.
+        </p>
+        <p>
+          Our scrollytelling experience will guide you through the deeper meanings behind each tradition, the stories of gods and goddesses, and the timeless values that make these celebrations so special. Whether you're reconnecting with your roots or discovering these traditions for the first time, prepare to be enchanted by the rich tapestry of Indian culture.
+        </p>
+        <div class="landing-actions">
+          <a href="calendar.html" class="landing-btn">View Calendar</a>
+          <a href="stories.html" class="landing-btn">Read Stories</a>
+          <a href="gallery.html" class="landing-btn">Explore Gallery</a>
+          <a href="about.html" class="landing-btn">About Us</a>
+        </div>
+      </section>
+    </main>
+    <footer class="landing-footer">
+      &copy; 2023 Festival Calendar. All rights reserved.
+    </footer>
+  </body>
+</html>

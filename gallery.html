@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Festival Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gold: #ffd700;
+      --deep-red: #8B0000;
+      --cream: #F5F5DC;
+      --orange: #f7931e;
+      --panel-text: #333;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--deep-red);
+      margin: 0;
+      color: var(--panel-text);
+    }
+    .header {
+      background: var(--primary-gold);
+      padding: 1rem 0.5rem;
+      border-bottom: 4px solid var(--deep-red);
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .logo {
+      background: var(--primary-gold);
+      color: #222;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      margin-right: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-decoration: none;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-item {
+      background: var(--deep-red);
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      padding: 0.5rem 2rem;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      border: 1px solid #8B451344;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-item:hover {
+      background: var(--orange);
+      color: var(--deep-red);
+    }
+    .nav-item.active {
+      background: var(--orange);
+      color: var(--deep-red);
+      font-weight: 600;
+    }
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--cream);
+      text-align: center;
+      margin: 2rem 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    .gallery-item {
+      background: #87CEEB;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .gallery-image {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      background: linear-gradient(135deg, #87CEEB, #B0E0E6);
+    }
+    .gallery-image img[alt]:after {
+      content: attr(alt);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #4682B4;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 1rem;
+    }
+    .gallery-item:hover .gallery-image img {
+      transform: scale(1.05);
+    }
+    .gallery-caption {
+      background: white;
+      padding: 1rem;
+      text-align: center;
+      color: var(--panel-text);
+      font-weight: 500;
+    }
+    .context-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #87CEEB;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      z-index: 1000;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      color: var(--panel-text);
+    }
+    .context-panel.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    .context-panel h3 {
+      margin: 0 0 1rem 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--deep-red);
+    }
+    .context-panel p {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--deep-red);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .gallery-title {
+        font-size: 2rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo">Festival Calendar</a>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item">Home</a>
+      <a href="about.html" class="nav-item">About</a>
+      <a href="stories.html" class="nav-item">Stories</a>
+      <a href="gallery.html" class="nav-item active">Gallery</a>
+      <a href="calendar.html" class="nav-item">Calendar</a>
+    </nav>
+  </header>
+  
+  <main>
+    <h1 class="gallery-title">Gallery</h1>
+    
+    <!-- Gallery Introduction -->
+    <section style="background: var(--primary-gold); margin: 2rem auto; max-width: 90%; border-radius: 12px; padding: 2rem; text-align: center; color: var(--deep-red);">
+      <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem;">Visual Stories of Our Festivals</h2>
+      <p style="font-size: 1.1rem; line-height: 1.7; max-width: 800px; margin: 0 auto;">
+        Every image tells a story, and every festival creates memories that last a lifetime. Our gallery captures the essence of Indian celebrations - from the warm glow of Diwali diyas to the vibrant colors of Holi, from the devotional atmosphere of Ganesh Chaturthi to the energetic dances of Navratri. Click on any image to discover the cultural significance and stories behind these beautiful moments.
+      </p>
+    </section>
+    
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="showContext('diwali1')">
+        <div class="gallery-image">
+          <img src="diwali festival lights.jpg">
+        </div>
+        <div class="gallery-caption">Diwali Festival Lights</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('diwali2')">
+        <div class="gallery-image">
+          <img src="sacred diya collection.jpg">
+        </div>
+        <div class="gallery-caption">Sacred Diya Collection</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('rangoli1')">
+        <div class="gallery-image">
+          <img src="traditional rangoli art.jpg" alt="Colorful rangoli pattern with intricate designs">
+        </div>
+        <div class="gallery-caption">Traditional Rangoli Art</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('sweets1')">
+        <div class="gallery-image">
+          <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400&h=300&fit=crop" alt="Assorted Indian festival sweets and mithai">
+        </div>
+        <div class="gallery-caption">Festival Sweets Collection</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('holi1')">
+        <div class="gallery-image">
+          <img src="Holi Colour.jpg" alt="Joyful Holi celebration with vibrant colors">
+        </div>
+        <div class="gallery-caption">Holi Color Festival</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('ganesh1')">
+        <div class="gallery-image">
+          <img src="Ganesh Chaturti.jpg" alt="Decorated Lord Ganesha idol with flowers">
+        </div>
+        <div class="gallery-caption">Ganesh Chaturthi</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('kathakali1')">
+        <div class="gallery-image">
+          <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop" alt="Traditional Kathakali dancer in colorful costume">
+        </div>
+        <div class="gallery-caption">Kathakali Dance Performance</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('chhath1')">
+        <div class="gallery-image">
+          <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=400&h=300&fit=crop" alt="Devotee offering prayers during Chhath Puja">
+        </div>
+        <div class="gallery-caption">Chhath Puja Devotion</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('janmashtami1')">
+        <div class="gallery-image">
+          <img src="Krishna Janmashtami.jpg" alt="Krishna Janmashtami celebration decorations">
+        </div>
+        <div class="gallery-caption">Krishna Janmashtami</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('cultural1')">
+        <div class="gallery-image">
+          <img src="garba.jpg" alt="Traditional Garba dance during Navratri">
+        </div>
+        <div class="gallery-caption">Navratri Garba Dance</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('rakhi1')">
+        <div class="gallery-image">
+          <img src="Raksha Bandan Celebration.jpg" alt="Beautiful Rakhi threads with marigold flowers">
+        </div>
+        <div class="gallery-caption">Raksha Bandhan Celebration</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('dandiya1')">
+        <div class="gallery-image">
+          <img src="Dandia raas sticks.jpg" alt="Colorful Dandiya sticks for Navratri">
+        </div>
+        <div class="gallery-caption">Dandiya Raas Sticks</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('temple1')">
+        <div class="gallery-image">
+          <img src="Temple Festival Lights.jpg" alt="Hindu temple illuminated for festival">
+        </div>
+        <div class="gallery-caption">Temple Festival Lights</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('family1')">
+        <div class="gallery-image">
+          <img src="Family Festival Moments.jpg">
+        </div>
+        <div class="gallery-caption">Family Festival Moments</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('dussera1')">
+        <div class="gallery-image">
+          <img src="Dusserha Victory Dance.jpg" alt="Dussehra celebration with traditional decorations">
+        </div>
+        <div class="gallery-caption">Dussehra Victory Festival</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('pongal1')">
+        <div class="gallery-image">
+          <img src="Pongal Harvest Celebration.jpg" alt="Traditional Pongal harvest celebration">
+        </div>
+        <div class="gallery-caption">Pongal Harvest Festival</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('durga1')">
+        <div class="gallery-image">
+          <img src="Durga Puja Celebration.jpg" alt="Goddess Durga idol during Durga Puja">
+        </div>
+        <div class="gallery-caption">Durga Puja Celebration</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('lights1')">
+        <div class="gallery-image">
+          <img src="Festival Light Magic.jpg" alt="Festival lights creating magical atmosphere">
+        </div>
+        <div class="gallery-caption">Festival Light Magic</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('community1')">
+        <div class="gallery-image">
+          <img src="Community Celebration.jpg" alt="Community celebrating festival with joy">
+        </div>
+        <div class="gallery-caption">Community Celebration</div>
+      </div>
+      
+      <div class="gallery-item" onclick="showContext('children1')">
+        <div class="gallery-image">
+          <img src="Children Festival Joy.jpg" alt="Children enjoying festival celebrations">
+        </div>
+        <div class="gallery-caption">Children's Festival Joy</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="overlay" id="overlay" onclick="closeContext()"></div>
+  <div class="context-panel" id="contextPanel">
+    <button class="close-btn" onclick="closeContext()">&times;</button>
+    <img
+      id="contextImage"
+      src=""
+      alt="Festival Image"
+      style="max-width: 100%; border-radius: 8px; margin-bottom: 1rem;"
+    >
+    <h3 id="contextTitle">Festival Image</h3>
+    <p id="contextDescription">Detailed description of the festival image and its cultural significance.</p>
+  </div>
+
+  <script>
+    const contextData = {
+      diwali1: {
+        title: "Diwali Festival Lights",
+        description: "This stunning Diwali celebration showcases the golden glow of thousands of diyas (oil lamps) creating intricate patterns alongside beautiful rangoli designs. Diwali, the Festival of Lights, represents the triumph of light over darkness, knowledge over ignorance, and good over evil. Families spend weeks preparing their homes, cleaning thoroughly, and creating these magical displays that welcome Goddess Lakshmi and bring prosperity to the household. The warm, flickering light of diyas made from clay and filled with mustard oil creates an atmosphere of devotion, hope, and community celebration that has been cherished for millennia.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000001_Example.jpg"
+      },
+      diwali2: {
+        title: "Sacred Diya Collection",
+        description: "These traditional brass diyas with their brilliant flames represent the spiritual heart of Diwali celebrations. Each lamp is carefully crafted and filled with oil, then lit with cotton wicks to create a steady, warm glow. The arrangement of multiple diyas forms patterns that guide Goddess Lakshmi to homes, inviting prosperity and removing darkness from our lives. This ancient practice connects modern celebrants to generations of ancestors who have kept this beautiful tradition alive, symbolizing the eternal light of wisdom and divine grace.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000002_Example.jpg"
+      },
+      rangoli1: {
+        title: "Traditional Rangoli Art",
+        description: "This intricate rangoli pattern, created with colored powders, rice, and flower petals, represents one of India's most beautiful art forms. These temporary masterpieces adorn doorways and courtyards during festivals, serving as both decoration and spiritual invitation. Each geometric and floral design carries deep meaning - circles represent unity, lotus patterns symbolize purity, and peacock motifs bring good fortune. The creation of rangoli is a meditative practice that brings families together and transforms homes into sacred spaces of beauty and welcome.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000003_Example.jpg"
+      },
+      sweets1: {
+        title: "Festival Sweets Collection",
+        description: "This delightful array of traditional Indian sweets (mithai) includes ladoos, barfis, jalebis, and other festive treats that are essential to every celebration. These sweets are prepared with love using time-honored recipes passed down through generations, featuring ingredients like ghee, milk, sugar, nuts, and aromatic spices. Sharing sweets during festivals symbolizes the spreading of joy, sweetness in relationships, and divine blessings. Each sweet has its own significance - ladoos represent completeness, while the spiral shape of jalebis symbolizes the cycle of life.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000004_Example.jpg"
+      },
+      holi1: {
+        title: "Holi Color Festival",
+        description: "The vibrant festival of Holi transforms communities into joyous celebrations of color, marking the arrival of spring and the triumph of good over evil. People of all ages come together to play with gulal (colored powder) and water, creating an atmosphere of pure joy and unity. This festival breaks down social barriers, renews friendships, and celebrates the diversity and vibrancy of life. The colors have spiritual significance - red represents love and fertility, yellow symbolizes turmeric's healing properties, and green celebrates new beginnings and harvest.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000005_Example.jpg"
+      },
+      ganesh1: {
+        title: "Ganesh Chaturthi",
+        description: "This beautifully decorated Lord Ganesha idol showcases the artistry and devotion of Ganesh Chaturthi celebrations. Ganesha, the remover of obstacles and patron of arts and sciences, is honored with elaborate decorations, fresh flowers, and community prayers. The festival brings neighborhoods together in collective worship, cultural programs, and shared meals. The final immersion ceremony (Ganpati Visarjan) teaches profound lessons about the temporary nature of physical form and the eternal cycle of creation and dissolution, making this celebration both joyous and deeply spiritual.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000006_Example.jpg"
+      },
+      kathakali1: {
+        title: "Kathakali Dance Performance",
+        description: "This traditional Kathakali performer represents one of India's most sophisticated classical dance forms, originating from Kerala. The elaborate makeup, intricate costumes, and expressive facial movements tell ancient stories from Hindu epics like the Ramayana and Mahabharata. Each color in the makeup has specific meaning - green represents noble characters, red signifies evil or passionate characters, and white is used for divine beings. Kathakali performances during festivals preserve cultural heritage and provide spiritual education through the art of storytelling and dance.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000007_Example.jpg"
+      },
+      chhath1: {
+        title: "Chhath Puja Devotion",
+        description: "This devotional scene captures the essence of Chhath Puja, a ancient festival dedicated to the Sun God (Surya) and Chhathi Maiya. Devotees, primarily from Bihar and Uttar Pradesh, observe rigorous fasting and offer prayers while standing in water at dawn and dusk. The ritual offerings include fruits, vegetables, and traditional sweets arranged in bamboo baskets. This festival celebrates the life-giving power of the sun, environmental harmony, and gratitude for nature's bounty. The four-day celebration emphasizes purity, devotion, and the vital connection between humans and natural elements.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000008_Example.jpg"
+      },
+      janmashtami1: {
+        title: "Krishna Janmashtami",
+        description: "This festive display celebrates Krishna Janmashtami, the birth anniversary of Lord Krishna, one of Hinduism's most beloved deities. Temples and homes are decorated with flowers, lights, and small footprints leading to the altar, symbolizing baby Krishna's arrival. Traditional items like butter pots (makhan), peacock feathers, and flutes represent Krishna's playful childhood stories. The celebration includes singing devotional songs (bhajans), theatrical performances of Krishna's life (Ras Leela), and the joyous breaking of clay pots (Dahi Handi), recreating Krishna's mischievous butter-stealing adventures.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000009_Example.jpg"
+      },
+      cultural1: {
+        title: "Navratri Garba Dance",
+        description: "The vibrant Garba dance is the soul of Navratri celebrations, bringing communities together in joyous circles of devotion and celebration. Participants dress in colorful traditional attire and dance around a central lamp or image of Goddess Durga, creating an atmosphere of spiritual ecstasy and cultural pride. This folk dance from Gujarat has become a beloved tradition across India, symbolizing the cyclical nature of life and the divine feminine energy. The rhythmic clapping, graceful movements, and traditional music create a mesmerizing experience that connects dancers to their cultural roots while celebrating the triumph of good over evil.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000010_Example.jpg"
+      },
+      rakhi1: {
+        title: "Raksha Bandhan Celebration",
+        description: "These beautiful Rakhi threads adorned with marigold flowers represent the sacred bond between brothers and sisters celebrated during Raksha Bandhan. Sisters tie these decorative threads around their brothers' wrists, symbolizing protection, love, and lifelong commitment to each other's wellbeing. In return, brothers pledge to protect their sisters and offer gifts as tokens of their affection. This festival strengthens family bonds, celebrates sibling relationships, and reinforces the values of care, protection, and unconditional love that form the foundation of Indian family traditions.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000011_Example.jpg"
+      },
+      dandiya1: {
+        title: "Dandiya Raas Sticks",
+        description: "These colorful Dandiya sticks are essential to the energetic Dandiya Raas dance performed during Navratri celebrations. Each stick is beautifully decorated with ribbons, bells, and vibrant colors that create a rhythmic symphony when dancers strike them together in coordinated movements. The dance represents the cosmic dance of creation and destruction, with participants forming intricate patterns that symbolize the eternal cycle of life. The Dandiya Raas originated as a ritualistic dance honoring Goddess Durga's victory over evil forces, combining physical expression with spiritual devotion.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000012_Example.jpg"
+      },
+      temple1: {
+        title: "Temple Festival Lights",
+        description: "This magnificently illuminated temple showcases how sacred architecture becomes even more divine during festival celebrations. Thousands of lights outline the temple's intricate carvings and architectural details, creating a beacon of spiritual energy that can be seen from great distances. The lighting transforms the temple into a celestial palace, representing the divine light that dispels darkness and ignorance. Devotees gather in these illuminated spaces for special prayers, cultural programs, and community celebrations that strengthen their connection to the divine and to each other.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000013_Example.jpg"
+      },
+      family1: {
+        title: "Family Festival Moments",
+        description: "This heartwarming scene captures the essence of Indian family celebrations, where multiple generations come together to honor traditions and create lasting memories. Children learn about their cultural heritage through hands-on participation, while elders share wisdom and stories that have been passed down for centuries. These intimate family moments during festivals strengthen bonds, teach values, and ensure the continuity of cultural practices. The sharing of meals, prayers, and joy creates an atmosphere of love and belonging that defines the Indian festival experience.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000014_Example.jpg"
+      },
+      dussera1: {
+        title: "Dussehra Victory Festival",
+        description: "Dussehra celebrates the victory of Lord Rama over the demon king Ravana, symbolizing the eternal triumph of righteousness over evil. Communities gather to witness the dramatic burning of towering Ravana effigies, participate in Ram Lila performances that reenact the epic Ramayana, and celebrate the values of truth, courage, and dharma. This festival teaches important moral lessons about standing up for justice, the consequences of pride and arrogance, and the ultimate victory of good over evil. The celebration includes processions, cultural programs, and community feasts that bring people together in shared values.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000015_Example.jpg"
+      },
+      pongal1: {
+        title: "Pongal Harvest Festival",
+        description: "This traditional Pongal celebration honors the harvest season and expresses gratitude to nature's abundance. The festival features the preparation of sweet rice dish (also called Pongal) in clay pots, decorated with turmeric, banana leaves, and colorful kolam designs. Farmers celebrate their successful harvest, thank the sun, rain, and cattle for their contributions to agriculture, and pray for continued prosperity. The festival emphasizes the sacred relationship between humans and nature, environmental stewardship, and community sharing of agricultural bounty. It's a time of joy, gratitude, and hope for the coming year.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000016_Example.jpg"
+      },
+      durga1: {
+        title: "Durga Puja Celebration",
+        description: "This magnificent Goddess Durga idol represents the divine feminine power celebrated during Durga Puja, one of Bengal's most significant festivals. The elaborately decorated goddess, depicted with multiple arms wielding various weapons, symbolizes the triumph of good over evil and the protection of devotees from harm. The festival features stunning pandal (temporary structures) housing these artistic creations, community gatherings, cultural programs, and elaborate rituals. The final immersion ceremony teaches about the temporary nature of physical forms and the eternal presence of divine energy, making this celebration both artistically magnificent and spiritually profound.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000017_Example.jpg"
+      },
+      lights1: {
+        title: "Festival Light Magic",
+        description: "This enchanting display of festival lights creates a magical atmosphere that transforms ordinary spaces into realms of wonder and celebration. The intricate patterns of illumination represent the triumph of light over darkness, both literally and metaphorically. These decorative lights guide spirits and deities to participate in human celebrations while creating an atmosphere of joy and festivity. The warm glow brings communities together, encourages social bonding, and creates shared experiences of beauty that strengthen cultural identity and collective memory.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000018_Example.jpg"
+      },
+      community1: {
+        title: "Community Celebration",
+        description: "This joyous community gathering exemplifies how festivals bring diverse groups together in shared celebration and cultural pride. Neighbors who might rarely interact during regular days come together to organize events, share responsibilities, and create inclusive celebrations that welcome everyone. These community festivals feature cultural programs, food sharing, traditional games, and collaborative decorations that strengthen social bonds. They provide opportunities for cultural exchange, intergenerational learning, and the preservation of traditions through collective participation and shared responsibility.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000019_Example.jpg"
+      },
+      children1: {
+        title: "Children's Festival Joy",
+        description: "The innocent delight of children during festivals represents the pure joy and wonder that these celebrations bring to communities. Children's enthusiastic participation in rituals, dances, and cultural activities ensures the continuation of traditions while adding energy and spontaneity to celebrations. Through active involvement, young people learn about their heritage, develop cultural pride, and create positive associations with their traditions. Their joy and excitement inspire adults to maintain the festive spirit and work harder to preserve cultural practices for future generations.",
+        image: "https://as1.ftcdn.net/v2/jpg/00/00/00/00/1000_F_0000000020_Example.jpg"
+      }
+    };
+
+    function showContext(imageId) {
+      const data = contextData[imageId];
+      if (data) {
+        document.getElementById('contextTitle').textContent = data.title;
+        document.getElementById('contextDescription').textContent = data.description;
+        document.getElementById('contextImage').src = data.image || "";
+        document.getElementById('overlay').classList.add('active');
+        document.getElementById('contextPanel').classList.add('active');
+      }
+    }
+
+    function closeContext() {
+      document.getElementById('overlay').classList.remove('active');
+      document.getElementById('contextPanel').classList.remove('active');
+    }
+
+    // Close panel with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeContext();
+      }
+    });
+  </script>
+</body>
+</html>
